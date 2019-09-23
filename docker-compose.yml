@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  scraper:
+    build: $PWD
+    container_name: "node_backend"
+    environment:
+      NODE_ENV: development
+    ports:
+      - "8080:3060"
+    volumes:
+      - $PWD/.:/opt/app:rw
+    restart: always
