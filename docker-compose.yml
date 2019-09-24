@@ -1,13 +1,29 @@
 version: "3.7"
 
 services:
-  scraper:
-    build: $PWD
+  backend:
+    build: $PWD/api
     container_name: "node_backend"
     environment:
       NODE_ENV: development
     ports:
       - "8080:3060"
     volumes:
-      - $PWD/.:/opt/app:rw
+      - $PWD/api/.:/opt/app:rw
+    depends_on:
+      - mongodb
+    links:
+      - mongodb
     restart: always
+  
+  mongodb:
+    image: "mongo:4.0"
+    container_name: "mongodb"
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: project
+    volumes:
+      - $PWD/Database:/data/db
+    restart: aways
+
