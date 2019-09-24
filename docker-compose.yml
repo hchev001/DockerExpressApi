@@ -25,5 +25,5 @@ services:
       MONGO_INITDB_DATABASE: project
     volumes:
       - $PWD/Database:/data/db
-    restart: aways
+    restart: always
 
