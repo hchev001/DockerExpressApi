@@ -12,7 +12,12 @@ mongoose.Promise = global.Promise;
 // config/development.json or 
 // config/production.json depending on NODE_ENV environment
 // variable
-mongoose.connect(config.setup.db, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose
+  .connect(config.setup.db, { useNewUrlParser: true, useUnifiedTopology: true, keepAlive: 1, connectTimeoutMS: 30000 })
+  .catch(() => {
+    console.log("Failed to connec tto mongodb server");
+  });
+
 
 let app = express();
 
@@ -20,10 +25,10 @@ let app = express();
 let port = config.setup.PORT;
 
 // Assume that if a request contains data it is encoded as JSON
-app.unsubscribe(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Decode Request data
-app.unsubscribe(bodyParser.json());
+app.use(bodyParser.json());
 
 // Add Your Routess Here
 SampleRoutes(app);
