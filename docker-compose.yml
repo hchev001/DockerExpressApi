@@ -28,8 +28,8 @@ services:
         ipv4_address: 172.16.239.3
     environment:
       NODE_ENV: development
-    ports:
-      - "8081:3000"
+    #ports:
+    #  - "8081:3000"
     volumes:
       - $PWD/sample-client/.:/opt/app:rw
     restart: always
@@ -42,8 +42,8 @@ services:
         ipv4_address: 172.16.239.4
     environment:
       NODE_ENV: development
-    ports:
-      - "8080:3060"
+      #ports:
+      #- "8080:3060"
     volumes:
       - $PWD/api/.:/opt/app:rw
     depends_on:
