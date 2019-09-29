@@ -1,0 +1,6 @@
+{
+    "setup": {
+        "PORT": 3060,
+        "db": "mongodb://mongodb:27017/project"
+    }
+}

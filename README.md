@@ -8,6 +8,8 @@ Make sure you have docker and docker-compose installed and that port 8080 is not
 
 In the root directory of the project, where the docker-compose.yml file exists
 
+Create a folder called Database, the content of the MongoDatabase will be stored there
+
 run: docker-compose build 
 thne
 run: docker-compose up -d
