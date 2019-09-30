@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import config from 'config';
-import SampleRoutes from './routes/sample.routes';
+import sampleRoutes from './routes/sample.routes';
 import mongoose from "mongoose";
 
 // Let mongoose use the same implementation
@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Add Your Routess Here
-SampleRoutes(app);
+sampleRoutes(app);
 
 app.listen(port);
 

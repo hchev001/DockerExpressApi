@@ -1,5 +1,5 @@
 import axios from "axios";
-import Sample from "../../models/sample.model";
+import sample from "../../models/sample.model";
 import projection from "./sample.projection";
 
 
@@ -20,7 +20,7 @@ export default {
 		// Process Request //
 
 		// Query Database
-		Sample.find({}, projection(req.user, "GET /samples"), (err, dbData) => {
+		sample.find({}, projection(req.user, "GET /samples"), (err, dbData) => {
 			// if error occured, return error response
 			if (err) {
 				return res.status(502).send({});
@@ -41,7 +41,7 @@ export default {
 		// Process Request
 
 		// Query Database
-		Sample.findById(req.params.id, projection(req.user, "GET /samples/:id"), (err, dbData) => {
+		sample.findById(req.params.id, projection(req.user, "GET /samples/:id"), (err, dbData) => {
 			// if error occured, return error response
 			if (err) {
 				res.status(502).send({});
@@ -63,7 +63,7 @@ export default {
      */
 	create_one: (req, res) => {
 		// Process Request
-		let sample = new Sample(req.body);
+		let sample = new sample(req.body);
 
 		// Igore values submitted by user for system controlled fields.
 		sample.createdAt = Date.now();
@@ -84,7 +84,7 @@ export default {
 			return res.status(201).json({
 				code: 201,
 				data: dbData,
-				message: "Sample succesfully created."
+				message: "sample succesfully created."
 			})
 		})
 
@@ -100,7 +100,7 @@ export default {
 		let systemFields = ["_id", "id", "createdAt", "updatedAt"];
 
 		// Query Database
-		Sample.findById(req.params.id, projection(req.user, "PUT /samples/:id"), (err, dbData) => {
+		sample.findById(req.params.id, projection(req.user, "PUT /samples/:id"), (err, dbData) => {
 			// if error occured, return error response
 			if (err) {
 				return res.status(502).send({});
@@ -109,8 +109,8 @@ export default {
 			} else {
 				documentToUpdate = dbData;
 
-				// Cast documentToUpdate as a Sample
-				documentToUpdate = new Sample(documentToUpdate);
+				// Cast documentToUpdate as a sample
+				documentToUpdate = new sample(documentToUpdate);
 
 				// Update the retrieved document with the data submitted
 				// to the PUT request (ignoring system controlled fields).
@@ -155,7 +155,7 @@ export default {
 		// Process Request
 
 		// Query Database
-		Sample.remove({ _id: req.params.id }, (err, dbData) => {
+		sample.remove({ _id: req.params.id }, (err, dbData) => {
 			// if error ocurred, return error response
 			if (err) {
 				res.status(502).send({});

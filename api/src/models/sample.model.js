@@ -9,7 +9,7 @@ const Schema = mongoose.Schema;
  * For more on Schema's , see official documentation
  * https://mongoosejs.com/docs/guide.html
  */
-const SampleSchema = new Schema({
+const sampleSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now
@@ -43,8 +43,8 @@ const SampleSchema = new Schema({
   }
 });
 
-// Assign an identifier for the SampleSchema
-const model = mongoose.model("Sample", SampleSchema);
+// Assign an identifier for the sampleSchema
+const model = mongoose.model("sample", sampleSchema);
 
 // Export it as the default for other packages to consume
 export default model;

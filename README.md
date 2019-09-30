@@ -1,41 +1,66 @@
-# SampleApi
+# DockerExpressAPI...Actually a Full Web App 
 
-Simple API setup. No connection to Database
+Originally this repository was meant to be an example of how I orgnaize an Express API. However, some circumstances changed and decided to make it a full web app.
+The project is composed of a MongoDB, Express API, Create-React-App client, and an NGINX Reverse Proxy. Each component is run in a Docker container. 
+The tool docker-compose is used to orchestrate the docker containers.
+
 
 # Instructions for Using The App
 
-Make sure you have docker and docker-compose installed and that port 8080 is not being used by any other service.
+To start the project, from the root directory run:
 
-In the root directory of the project, where the docker-compose.yml file exists
+`docker-compose up -d`
 
-Create a folder called Database, the content of the MongoDatabase will be stored there
 
-run: docker-compose build 
-thne
-run: docker-compose up -d
+This will only start the containers, the backend and client still need to be started manually.
 
-By now there should be a docker container running called 
+Open up two terminal sessions.
 
-node_backend
+## Starting the Backend
 
-you can verify this by running
+The backend container is conveniently named *backend* 
 
-docker ps
+We need to enter it first by running from the terminal:
 
-and you should see all running containers
+`docker exec -u www-data -it backend bash`
 
-# starting the api
+This will let you open a bash terminal session inside the container as user *www-data*
 
-in a terminal window you will essentially connect to the container by typing the following:
+Navigate to the project directory, either with:
 
-docker exec -u www-data -it node_backend bash
+`cd $PROJECT` or `cd /opt/app`
 
-it will open a terminal session inside the container
+Start the backend
 
-change to the project directory by typing: cd $PROJECT
+`npm start`
 
-to start the project just type npm start
+## Starting the Frontend
+The frontend runs in a container called *client*, an instance of Create-React-App
 
-# From this point forward
+We need to enter it first by running from the terminal:
 
-Any changes you make on the local directory will be updated inside the docker container
+`docker exec -u www-data -it client bash`
+
+This will let you open a bash terminal session inside the container as user *www-data*
+
+Navigate to the project directory, either with:
+
+`cd $PROJECT` or `cd /opt/app`
+
+Start the backend
+
+`npm start`
+
+# So you have the project running, what now?
+
+## How to access the project
+
+When running the project locally you will be able to access the React SPA via `http://localhost:9090/`
+
+Any http request will need to be made to the appropriate route but prepending it first with `http://localhost:9090/api`
+
+Example: To access the *samples* routes from the API. We would make a GET request to `http://localhost:9090/api/samples`
+
+## Editing the Code
+
+Any changes you make on the local directories (api, sample-client) will be updated inside the docker containers for ease of development.
